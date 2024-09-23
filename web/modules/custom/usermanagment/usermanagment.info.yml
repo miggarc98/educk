@@ -1,0 +1,5 @@
+name: 'userManagment'
+type: module
+description: 'Module to managment users of institutions'
+package: EDUCK
+core_version_requirement: ^10 || ^11

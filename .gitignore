@@ -73,3 +73,5 @@ web/sites/default/files
 /drush
 /drupal.phar
 /drupal
+web/themes/contrib
+web/modules/contrib

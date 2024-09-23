@@ -1,0 +1,8 @@
+# Schema for the configuration files of the educk_theme theme.
+educk_theme.settings:
+  type: theme_settings
+  label: 'educk_theme settings'
+  mapping:
+    example:
+      type: string
+      label: Example
