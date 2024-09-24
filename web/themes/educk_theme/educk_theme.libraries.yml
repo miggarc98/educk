@@ -2,9 +2,13 @@
 global:
   js:
     js/educk-theme.js: {}
+    bootstrap-5.3.3/js/bootstrap.min.js: {}
   css:
     base:
+      bootstrap-5.3.3/css/bootstrap.min.css: {}      
+      css/base/variables.css: {}
       css/base/elements.css: {}
+     
     component:
       css/component/block.css: {}
       css/component/breadcrumb.css: {}
@@ -22,3 +26,4 @@ global:
       css/layout/layout.css: {}
     theme:
       css/theme/print.css: { media: print }
+      https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap: {}

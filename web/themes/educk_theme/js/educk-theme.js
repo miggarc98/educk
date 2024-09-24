@@ -3,15 +3,15 @@
  * educk_theme behaviors.
  */
 (function (Drupal) {
-
   'use strict';
 
+  // Definición del comportamiento de Drupal
   Drupal.behaviors.educkTheme = {
-    attach (context, settings) {
-
-      console.log('It works!');
-
+    attach: function (context, settings) {
+      console.log('It works!'); // Este mensaje se mostrará cada vez que se cargue o actualice el contenido
     }
   };
 
-} (Drupal));
+  console.log('Educk theme JS is loaded'); // Este mensaje se mostrará una vez cuando se cargue el archivo JS
+
+})(Drupal);

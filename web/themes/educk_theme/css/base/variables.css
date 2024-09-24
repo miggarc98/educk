@@ -1,0 +1,7 @@
+:root {
+    --primary-color: #eeebe5; /* Fondo claro */
+    --secondary-color: #3A6D8C; /* Hover en enlaces */
+    --tertiary-color: #6A9AB0; /* Títulos */
+    --accent-color: #001F3F; /* Texto principal */
+    --highlight-color: #FF6F61; /* Color de acento para botones o llamadas a la acción */
+}

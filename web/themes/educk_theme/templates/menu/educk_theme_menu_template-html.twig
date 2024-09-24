@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title> JUNA</title>
+   
+</head>
+<body>
+
+  
+    
+ 
+    <div class="d-flex" id="wrapper">
+
+        <!-- Sidebar-->
+        <div class="border-end " id="sidebar-wrapper" style="background-color: #333;">
+            <div class="sidebar-heading border-bottom --bs-primary">
+                <img src="~/img/logosena.png" class="logo-institucion ms-2 ps-5"/>
+             
+            </div>
+            {# @if (tipoUsuario == "Estudiante")
+            {
+                <div class="list-group list-group-flush" id="menu-sidebar">
+                    <a class="list-group-item list-group-item-action list-group-item p-3 " style="background-color: #333;color:#fff;" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/home.svg" /> Inicio</a>
+                    <a class="list-group-item list-group-item-action list-group-item p-3" style="background-color: #333; color:#fff;" asp-area="" asp-controller="Home" asp-action="Privacy"> <img src="~/img/book.svg" /> Recursos</a>
+                    <a class="list-group-item list-group-item-action list-group-item p-3" style="background-color: #333; color:#fff;" asp-area="" asp-controller="Home" asp-action="Privacy"><img src="~/img/bookmark_book.svg" /> Horario de clases</a>
+                    <a class="list-group-item list-group-item-action list-group-item p-3" style="background-color: #333;color:#fff;" asp-area="" asp-controller="Grado" asp-action="Index"><img src="~/img/newspaper.svg" /> Anuncios</a>
+                    <a class="list-group-item list-group-item-action list-group-item p-3" style="background-color: #333;color:#fff;" asp-area="" asp-controller="EscalaCalificacion" asp-action="Index"><img src="~/img/clipboard_notes.svg" /> Tareas pendientes</a>
+                    <a class="list-group-item list-group-item-action list-group-item p-3" style="background-color: #333;color:#fff;" asp-controller="Area" asp-action="Index"><img src="~/img/calendar_datewhite.svg" /> Calendario Academico</a>
+                    <a class="list-group-item list-group-item-action list-group-item p-3" style="background-color: #333;color:#fff;" asp-controller="Area" asp-action="Index"><img src="~/img/directions.svg" /> Asignaturas</a>
+                </div>
+            }
+            @if (tipoUsuario == "Profesor")
+            {
+                <div class="list-group list-group-flush" id="menu-sidebar">
+                    <a class="list-group-item list-group-item-action list-group-item p-3 " style="background-color: #333;color:#fff;" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/home.svg" /> Inicio</a>
+                    <a class="list-group-item list-group-item-action list-group-item p-3" style="background-color: #333; color:#fff;" asp-area="" asp-controller="Home" asp-action="Privacy"> <img src="~/img/book.svg" /> Calendario Academico </a>
+                    <a class="list-group-item list-group-item-action list-group-item p-3" style="background-color: #333; color:#fff;" asp-area="" asp-controller="Home" asp-action="Privacy"><img src="~/img/bookmark_book.svg" /> Horario de clases</a>
+                    <a class="list-group-item list-group-item-action list-group-item p-3" style="background-color: #333;color:#fff;" asp-area="" asp-controller="Grado" asp-action="Index"><img src="~/img/newspaper.svg" /> Comunicaciónes</a>
+                    <a class="list-group-item list-group-item-action list-group-item p-3" style="background-color: #333;color:#fff;" asp-area="" asp-controller="EscalaCalificacion" asp-action="Index"><img src="~/img/clipboard_notes.svg" /> Gestión de Clases</a>
+                    <a class="list-group-item list-group-item-action list-group-item p-3" style="background-color: #333;color:#fff;" asp-controller="Area" asp-action="Index"><img src="~/img/calendar_datewhite.svg" /> Recursos</a>
+                    <a class="list-group-item list-group-item-action list-group-item p-3" style="background-color: #333;color:#fff;" asp-controller="Area" asp-action="Index"><img src="~/img/directions.svg" /> Gestión de Tareas</a>
+                </div>
+            }
+            @if (tipoUsuario == "Admin") #}
+            {# { #}
+                <div class="list-group list-group-flush" id="menu-sidebar">
+                    <a class="list-group-item list-group-item-action list-group-item p-3 " style="background-color: #333;color:#fff;" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/home.svg" /> Inicio</a>
+                    <a class="list-group-item list-group-item-action list-group-item p-3" style="background-color: #333; color:#fff;" asp-area="" asp-controller="Home" asp-action="Privacy"> <img src="~/img/book.svg" /> Recursos</a>
+                    <a class="list-group-item list-group-item-action list-group-item p-3" style="background-color: #333; color:#fff;" asp-area="" asp-controller="Estudiantes" asp-action="Index"><img src="~/img/bookmark_book.svg" /> Gestion de Estudiantes</a>
+                    <a class="list-group-item list-group-item-action list-group-item p-3" style="background-color: #333;color:#fff;" asp-area="" asp-controller="EscalaCalificacion" asp-action="Index"><img src="~/img/clipboard_notes.svg" /> Gestión de directivos</a>
+                    <a class="list-group-item list-group-item-action list-group-item p-3" style="background-color: #333;color:#fff;" asp-area="" asp-controller="Grado" asp-action="Index"><img src="~/img/newspaper.svg" /> Comunicaciónes</a>
+                    <a class="list-group-item list-group-item-action list-group-item p-3" style="background-color: #333;color:#fff;" asp-controller="Area" asp-action="Index"><img src="~/img/calendar_datewhite.svg" /> Calendario Academico</a>
+                    <a class="list-group-item list-group-item-action list-group-item p-3" style="background-color: #333;color:#fff;" asp-controller="Area" asp-action="Index"><img src="~/img/directions.svg" /> Gestión de Tareas</a>
+                </div>
+            {# } #}
+           
+            <div id="logo-sidebar" class="ms-3">
+            <a class="navbar-brand ml-auto pb-5 ps-5 mt-auto" href="#">
+                <img src="~/img/logosin fondo.png" class="ms-2"alt="Logo">
+            </a>
+                <p class="ms-0 mb-0 text-center small me-1">©JUNA 2023.</p>
+                <p class="ms-2   text-center small me-1">Todos los Derechos Reservados.</p>
+            </div>
+        </div>
+        <!-- Page content wrapper-->
+        <div id="page-content-wrapper">
+            <!-- Top navigation-->
+            <nav class="navbar navbar-expand-lg   border-bottom" style="background-color: #35a9ff;">
+                
+                <div class="container-fluid">
+                    <button class="btn btn" id="sidebarToggle"><img src="~/img/push_left.svg" id='sidebarToggleImg' /></button>
+                   
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                            <li class="nav-item active"><a class="nav-link" href="Home">@tipoUsuario - @nombreUsuario</a></li>
+
+                            <!--Alertas -->
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-bell fa-fw"><img src="~/img/bell.svg" /></i>
+                                    <!-- Counter - Alerts -->
+                                    <span class="badge badge-danger badge-counter ">3+ </span> 
+                                </a>
+                                <!-- Dropdown - Alertas -->
+                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in pt-0 pb-0"
+                                     aria-labelledby="alertsDropdown" >
+                                    <h6 class="dropdown-header bg-primary text-bg-primary text-capitalize">
+                                        Notificaciones
+                                    </h6>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                      
+                                        <div>
+                                            <div class="small text-gray-500">Diciembre 24, 2023</div>
+                                            <p class="text-wrap">abrir los regalitos :p</p>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                      
+                                        <div class="mb-2 ">
+                                            <div class="small text-gray-500">07 Diciembre, 2023</div>
+                                            <p class="text-wrap">El profesor de Matematicas a subido la retroalimentacion del trabajo: "Factorizar 101"</p>
+                                            
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                       
+                                       
+                                        <div>
+                                            <div class="small text-gray-500">diciembre 2, 2023</div>
+                                            <p class="text-wrap">El profesor de Matematicas a subido la retroalimentacion del trabajo: "Factorizar 101"</p>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">                                
+                                <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" role="button"  aria-haspopup="true" aria-expanded="false"><img src="~/img/profile.svg" /></a>
+                                <div class="dropdown-menu dropdown-menu-end " id="profileDropdownMenu" aria-labelledby="profileDropdown">
+                                    <a class="dropdown-item" href="~\Home"><img src="~/img/user_male_circle.svg" /> Perfil</a>
+                                    <a class="dropdown-item" href="#!"><img src="~/img/settings.svg" /> Preferencias</a>
+                                   
+                                   
+                                    <div class="dropdown-divider"></div>                                    
+                                    <a class="dropdown-item" href="#!"><img src="~/img/info_circle-menu.svg" /> Acerca de</a>
+                                    <a class="dropdown-item" href="#!"><img src="~/img/logout.svg" /> Cerrar Sesion</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="container-xl w-100 " id="containerMain">
+                <main role="main" class="container-fluid h-100 w-100">
+            
+        </main>
+    </div>
+            {# @*ALERTA*@ #}
+            <div class="container mt-3 d-flex position-fixed " style="white-space: nowrap;" id="alertContainer"></div>
+            {# @*---*@
+            @*LOADER*@ #}
+            <div class="Loader  vh-100 vw-100 position-absolute " style="display:none" id="loader-spinner"><span class="loader position-relative  top-50 start-50 translate-middle "></span></div>
+            <!-- Page content-->
+           
+        </div>
+    </div>    
+</body>
+</html>

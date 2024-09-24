@@ -1,0 +1,18 @@
+body {
+    font-family: var(--primary-font);
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--primary-font);
+    color: var(--tertiary-color);
+}
+
+a {
+    color: var(--accent-color);
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
