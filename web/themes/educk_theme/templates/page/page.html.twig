@@ -47,19 +47,16 @@
 #}
 <div class="layout-container">
 
-  <header role="banner">
+  <header class="layout w-100 d-flex border-bottom p-0 m-0">
+ 
+
     {{ page.header }}
+    {{ page.primary_menu }}
   </header>
+    {# {{ dump(page.header) }}
+    {{ dump(page.primary_menu ) }}
+    {{ dump(page.primary_menu['educk_theme_main_menu']) }} #}
   
-  {{ page.primary_menu }}
-  {{ page.secondary_menu }}
-
-  {{ page.breadcrumb }}
-
-  {{ page.highlighted }}
-
-  {{ page.help }}
-
   <main role="main" >
   
     <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
@@ -83,7 +80,7 @@
   </main>
 
   {% if page.footer %}
-    <footer role="contentinfo">
+    <footer role="contentinfo" class="layaout" id="footer-simple" >
       {{ page.footer }}
     </footer>
   {% endif %}

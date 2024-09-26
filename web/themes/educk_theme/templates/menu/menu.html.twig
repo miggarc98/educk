@@ -1,0 +1,51 @@
+{#
+  * Default theme implementation to display a menu.
+  *
+  * Available variables:
+  * - items: A nested list of menu items. Each menu item contains:
+  *   - attributes: HTML attributes for the menu item.
+  *   - below: The menu item child items.
+  *   - title: The menu link title.
+  *   - url: The menu link URL, instance of \Drupal\Core\Url
+  *   - localized_options: Menu link localized options.
+  *   - is_expanded: TRUE if the link has visible children within the current menu tree.
+  *   - is_collapsed: TRUE if the link has children within the current menu tree that are not currently visible.
+  *   - in_active_trail: TRUE if the link is in the active trail.
+  * - attributes: HTML attributes for the <ul> element.
+  *
+  * @ingroup themeable
+  #}
+
+{% if items %}
+  <nav class="navbar navbar-expand-lg navbar-light w-100" id="menu-main-page">
+    <ul class="navbar-nav mr-auto"{{ attributes.addClass('menu') }}>
+      {% for item in items %}
+        {% if item.title == 'Logo' %}
+          <li class="nav-item {{ item.in_active_trail ? 'active' : '' }}" id="logo-header">
+            <a href="{{ item.url }}" class="nav-link logo">
+              <img src="/themes/educk_theme/images/LOGOSinFondo.png" alt="{{ item.title }}">
+            </a>
+          </li>
+        {% endif %}
+      {% endfor %}
+
+      <div id="rigth-section" clas="ml-1">
+        {% for item in items %}
+          {% if item.title != 'Logo' %}
+            <li class="nav-item item-link-nav {{ item.in_active_trail ? 'active' : '' }}">
+              <a href="{{ item.url }}" class="nav-link {{ item.is_expanded ? 'dropdown-toggle' : '' }}" {% if item.is_expanded %}data-toggle="dropdown"{% endif %}>
+                {{ item.title }}
+              </a>
+              {# Si el elemento tiene un submenú #}
+              {% if item.below %}
+                <ul class="dropdown-menu">
+                  {{ item.below }}
+                </ul>
+              {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </ul>
+  </nav>
+{% endif %}

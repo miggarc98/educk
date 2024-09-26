@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-
+use Kint\Kint;
 /**
  * @file
  * Functions to support theming in the educk_theme theme.
@@ -17,9 +17,36 @@ function educk_theme_preprocess_html(array &$variables): void {
 /**
  * Implements hook_preprocess_HOOK() for page.html.twig.
  */
+/**
+ * Implements hook_preprocess_HOOK() for page.html.twig.
+ */
 function educk_theme_preprocess_page(array &$variables): void {
+  $user = \Drupal::currentUser();
 
+  // Verifica si el usuario está logueado.
+  if ($user->isAuthenticated()) {
+      // Intenta obtener el administrador de bloques.
+      $block_manager = \Drupal::service('plugin.manager.block');
+
+      // Verifica si el servicio de gestión de bloques está disponible.
+      if ($block_manager) {
+          // Agrega un bloque para el menú de cuenta de usuario.
+          $account_menu_block = $block_manager->createInstance('educk_theme_account_menu', []);
+          if ($account_menu_block) {
+              $variables['account_menu'] = $account_menu_block->build(); // Asegúrate de asignar a 'account_menu'.
+              
+          } else {
+              \Drupal::logger('educk_theme')->error('No se pudo crear el bloque educk_theme_account_menu.');
+          }
+      } else {
+          \Drupal::logger('educk_theme')->error('El servicio de plugin.manager.block no está disponible.');
+      }
+  }
 }
+
+
+    
+
 
 /**
  * Implements hook_preprocess_HOOK() for node.html.twig.
@@ -27,3 +54,4 @@ function educk_theme_preprocess_page(array &$variables): void {
 function educk_theme_preprocess_node(array &$variables): void {
 
 }
+

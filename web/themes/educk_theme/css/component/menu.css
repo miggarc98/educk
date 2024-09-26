@@ -1,0 +1,31 @@
+/* MAIN MENU */
+
+    #menu-main-page{
+        background-color: var(--accent-color);
+    }
+    #menu-main-page .item-link-nav a {
+        color: var(--primary-color) !important;
+        border-radius: 12px;
+    }
+    #menu-main-page .item-link-nav :hover{
+        background-color: var(--secondary-color);
+        border: solid 0px;
+        border-radius: 12px;
+    }
+    #block-educk-theme-main-menu{
+        width: 100%;                                
+    }
+    #rigth-section{
+        display: flex;
+        justify-content: flex-end;
+        align-content: flex-end;
+        align-items: center;
+        right: 0px;
+        position: absolute;
+        margin-right: 1rem;
+    }
+    #logo-header{
+        width: 100px;
+        margin-left: 0.9rem;
+    }
+/* END MAIN MENU */
