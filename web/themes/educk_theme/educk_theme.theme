@@ -43,6 +43,11 @@ function educk_theme_preprocess_page(array &$variables): void {
       }
   }
 }
+function educk_theme_preprocess_menu(&$variables) {
+    $current_user = \Drupal::currentUser();
+    $variables['user_name'] = $current_user->getDisplayName();
+    
+  }
 
 
     

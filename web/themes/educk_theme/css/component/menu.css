@@ -5,12 +5,18 @@
     }
     #menu-main-page .item-link-nav a {
         color: var(--primary-color) !important;
-        border-radius: 12px;
+        padding-bottom: 0px;
+        padding-top: 1rem;
+        border-radius: 0; /* Eliminamos el border-radius */
     }
-    #menu-main-page .item-link-nav :hover{
-        background-color: var(--secondary-color);
-        border: solid 0px;
-        border-radius: 12px;
+    #menu-main-page .item-link-nav a:hover {
+        background-color: transparent; /* Eliminamos el fondo al hacer hover */
+        border: none; /* Eliminamos todos los bordes */
+        border-bottom: 2px solid var(--secondary-color); /* Añadimos solo el borde inferior */
+    }
+    .Menu-is-login{
+       position: absolute;
+       right: 1px;
     }
     #block-educk-theme-main-menu{
         width: 100%;                                
