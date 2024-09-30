@@ -1,64 +1,71 @@
 {% if items %}
   <nav class="navbar navbar-expand-lg navbar-light w-100 shadow-sm sticky-top h-100" id="menu-main-page">
-    <ul class="navbar-nav mr-auto"{{ attributes.addClass('menu') }}>
+    <div class="container-fluid">
       {% for item in items %}
         {% if item.title == 'Logo' %}
-          <li class="nav-item {{ item.in_active_trail ? 'active' : '' }}" id="logo-header">
-            <a href="{{ item.url }}" class="nav-link logo">
-              <img src="/themes/educk_theme/images/LOGOSinFondo.png" alt="{{ item.title }}">
-            </a>
-          </li>
+          <a href="{{ item.url }}" class="navbar-brand" id="logo-header">
+            <img src="/themes/educk_theme/images/LOGOSinFondo.png" alt="{{ item.title }}">
+          </a>
         {% endif %}
       {% endfor %}
 
-      <div id="right-section" class="ml-1  ">
-        {% for item in items %}
-          {% if item.title != 'Logo' %}
-            <li class="nav-item item-link-nav {{ item.in_active_trail ? 'active' : '' }}">
-              {% if item.title == 'Inicio' %}
-                <a href="{{ item.url }}" class="nav-link Menu-is-login">
-                  <img src="/themes/educk_theme/images/home.svg" alt="{{ item.title }}"> {{ item.title }}
-                </a>
-              {% elseif item.title|trim == 'Iniciar Sesión' %}
-                <a href="{{ item.url }}" class="nav-link">
-                  <img src="/themes/educk_theme/images/login.svg" alt="{{ item.title }}"> {{ item.title }}
-                </a>
-              {% elseif item.title == 'MenuDesplegable' %}
-                <a href="{{ item.url }}" class="nav-link dropdown-toggle mb-2 me-3 " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <img src="/themes/educk_theme/images/user_male_circle.svg" alt="Icono de usuario">
-                  {% if user_name is defined %}
-                    {{ user_name }}
-                  {% else %}
-                    Usuario
-                  {% endif %}
-                </a>
-                {% if item.below %}
-                  <ul class="dropdown-menu">
-                    {% for subitem in item.below %}
-                      <li>
-                        <a href="{{ subitem.url }}" class="dropdown-item">{{ subitem.title }}</a>
-                      </li>
-                    {% endfor %}
-                  </ul>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse right-side-nav-bar" id="navbarContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          {% for item in items %}
+            {% if item.title != 'Logo' %}
+              <li class="nav-item item-link-nav {{ item.in_active_trail ? 'active' : '' }}">
+                {% if item.title == 'Inicio' %}
+                  <a href="{{ item.url }}" class="nav-link item-link-nav">
+                    <img src="/themes/educk_theme/images/home.svg" alt="{{ item.title }}"> {{ item.title }}
+                  </a>
+                {% elseif item.title == 'Notificaciones' %}
+                  <a  class="nav-link item-link-nav">
+                    <img src="/themes/educk_theme/images/bell.svg" alt="{{ item.title }}">
+                  </a>
+                {% elseif item.title|trim == 'Iniciar Sesión' %}
+                  <a href="{{ item.url }}" class="nav-link item-link-nav">
+                    <img src="/themes/educk_theme/images/login.svg" alt="{{ item.title }}"> {{ item.title }}
+                  </a>
+                {% elseif item.title == 'MenuDesplegable' %}
+                  <div class="dropdown">
+                    <a class="nav-link dropdown-toggle item-link-nav"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img src="/themes/educk_theme/images/user_male_circle.svg" alt="Icono de usuario">
+                      {% if user_name is defined %}
+                        {{ user_name }}
+                      {% else %}
+                        Usuario
+                      {% endif %}
+                    </a>
+                    {% if account_menu %}
+                      <ul class="dropdown-menu dropdown-menu-end" id="dropdown-menu-user" aria-labelledby="navbarDropdown">
+                        {% for key, menu_item in account_menu['#items'] %}
+                          <li>
+                            <a class="dropdown-item dropdown-item-user" href="{{ menu_item.url }}">
+                              {% if menu_item.title['#markup'] is defined %}
+                                {{ menu_item.title['#markup'] }}
+                              {% else %}
+                                {{ menu_item.title }}
+                              {% endif %}
+                            </a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </div>
+                {% else %}
+                  <a href="{{ item.url }}" class="nav-link item-link-nav">
+                    {{ item.title }}
+                  </a>
                 {% endif %}
-              {% else %}
-                <a href="{{ item.url }}" class="nav-link {{ item.is_expanded ? 'dropdown-toggle' : '' }}" {% if item.is_expanded %}data-toggle="dropdown"{% endif %}>
-                  {{ item.title }}
-                </a>
-                {% if item.below %}
-                  <ul class="dropdown-menu">
-                    {% for subitem in item.below %}
-                      <li>
-                        <a href="{{ subitem.url }}" class="dropdown-item">{{ subitem.title }}</a>
-                      </li>
-                    {% endfor %}
-                  </ul>
-                {% endif %}
-              {% endif %}
-            </li>
-          {% endif %}
-        {% endfor %}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
       </div>
-    </ul>
+    </div>
   </nav>
 {% endif %}

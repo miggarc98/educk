@@ -2,16 +2,43 @@
  * @file
  * educk_theme behaviors.
  */
-(function (Drupal) {
-  'use strict';
 
-  // Definición del comportamiento de Drupal
-  Drupal.behaviors.educkTheme = {
+
+(function ($, Drupal) {
+  Drupal.behaviors.educkThemeDropdown = {
     attach: function (context, settings) {
-      console.log('It works!'); // Este mensaje se mostrará cada vez que se cargue o actualice el contenido
+      $(context).find('.dropdown-toggle').once('educkThemeDropdown').each(function () {
+        new bootstrap.Dropdown(this);
+      });
     }
   };
+})(jQuery, Drupal);
+(function ($, Drupal) {
+  Drupal.behaviors.educkThemeDropdown = {
+    attach: function (context, settings) {
+      // Usar .each() en lugar de .once()
+      $(context).find('.dropdown-toggle').each(function () {
+        var $this = $(this);
+        // Verificar si ya hemos inicializado este elemento
+        if (!$this.data('dropdown-initialized')) {
+          $this.on('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var $dropdownMenu = $this.siblings('.dropdown-menu');
+            $('.dropdown-menu').not($dropdownMenu).removeClass('show');
+            $dropdownMenu.toggleClass('show');
+          });
+          // Marcar como inicializado
+          $this.data('dropdown-initialized', true);
+        }
+      });
 
-  console.log('Educk theme JS is loaded'); // Este mensaje se mostrará una vez cuando se cargue el archivo JS
-
-})(Drupal);
+      // Cerrar el dropdown al hacer clic fuera de él
+      $(document).on('click', function (e) {
+        if (!$(e.target).closest('.dropdown').length) {
+          $('.dropdown-menu').removeClass('show');
+        }
+      });
+    }
+  };
+})(jQuery, Drupal);

@@ -27,3 +27,7 @@ global:
     theme:
       css/theme/print.css: { media: print }
       https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap: {}
+    dependencies:
+       - core/jquery
+       - core/drupal
+       - core/once
