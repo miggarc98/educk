@@ -42,3 +42,27 @@
     }
   };
 })(jQuery, Drupal);
+
+document.addEventListener('DOMContentLoaded', function() {
+  const menuWrapper = document.querySelector('.menu-lateral-wrapper');
+  const menuToggle = document.getElementById('menu-toggle');
+  const layoutContainer = document.querySelector('.layout-container');
+
+  menuToggle.addEventListener('click', function() {
+    menuWrapper.classList.toggle('menu-lateral-wrapper--collapsed');
+    menuWrapper.classList.toggle('menu-lateral-wrapper--expanded');
+    layoutContainer.classList.toggle('layout-container--expanded');
+  });
+
+  // Código existente para los submenús
+  document.querySelectorAll('.menu-lateral__toggle').forEach(button => {
+    button.addEventListener('click', () => {
+      const menuItem = button.closest('.menu-lateral__item');
+      menuItem.classList.toggle('menu-lateral__item--expanded');
+      button.setAttribute('aria-expanded', 
+        button.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'
+      );
+      button.textContent = button.textContent === '+' ? '-' : '+';
+    });
+  });
+});
