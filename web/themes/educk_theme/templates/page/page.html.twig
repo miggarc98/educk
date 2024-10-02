@@ -63,10 +63,12 @@
       {{ page.content }}
     </div>{# /.layout-content #}
 
-    {% if page.sidebar_first %}
-      <aside class="layout-sidebar-first" role="complementary">
+    {% if logged_in and page.sidebar_first %}
+      {% if page.sidebar_first %}
+        <aside class="layout-sidebar-first" role="complementary">
         {{ page.sidebar_first }}
       </aside>
+      {% endif %}
     {% endif %}
 
     {% if page.sidebar_second %}

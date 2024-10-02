@@ -25,8 +25,17 @@
             e.preventDefault();
             e.stopPropagation();
             var $dropdownMenu = $this.siblings('.dropdown-menu');
+            
+            // Cerrar todos los otros dropdowns
             $('.dropdown-menu').not($dropdownMenu).removeClass('show');
+            
+            // Alternar la clase 'show' en el dropdown actual
             $dropdownMenu.toggleClass('show');
+            
+            // Si el dropdown actual estaba abierto, cerrarlo
+            if (!$dropdownMenu.hasClass('show')) {
+              $dropdownMenu.removeClass('show');
+            }
           });
           // Marcar como inicializado
           $this.data('dropdown-initialized', true);

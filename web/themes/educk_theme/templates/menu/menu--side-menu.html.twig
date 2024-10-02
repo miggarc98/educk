@@ -23,7 +23,7 @@
 
 {% import _self as menus %}
 
-<div class="menu-lateral-wrapper">
+<div class="menu-lateral-wrapper menu-lateral-wrapper--collapsed">
   <nav id="menu-lateral" class="menu-lateral">
     <div class="menu-lateral__logo">
       <img src="{{ logo_path }}" alt="Logo de la institución" class="menu-lateral__logo-img">
@@ -32,8 +32,8 @@
       {{ menus.menu_links(items, attributes, 0) }}
     </div>
   </nav>
-  <button id="menu-toggle" class="menu-toggle" aria-label="Alternar menú">
-    <span class="menu-toggle__icon"> <img src="/themes/educk_theme/images/push_left.svg" alt="Alternar menú"> </span>
+  <button id="menu-toggle" class="menu-toggle menu-toggle-sidebar" aria-label="Alternar menú">
+    <span class="menu-toggle__icon menu-toggle-sidebar__icon"> <img src="/themes/educk_theme/images/push_left.svg" alt="Alternar menú"> </span>
   </button>
 </div>
 {% macro menu_links(items, attributes, menu_level) %}
