@@ -79,3 +79,37 @@ function educk_theme_preprocess_node(array &$variables): void {
 
 }
 
+
+
+
+/**
+ * Implements hook_preprocess_HOOK() for status messages.
+ */
+function educk_theme_preprocess_status_messages(&$variables) {
+  $messenger = \Drupal::messenger();
+  $messages = $messenger->all();
+  $messenger->deleteAll();
+
+  $variables['message_list'] = [];
+  foreach ($messages as $type => $messages) {
+    foreach ($messages as $message) {
+      $variables['message_list'][] = [
+        'type' => $type,
+        'message' => $message,
+        'bootstrap_type' => _educk_theme_map_message_type($type),
+      ];
+    }
+  }
+}
+
+/**
+ * Helper function to map Drupal message types to Bootstrap alert types.
+ */
+function _educk_theme_map_message_type($type) {
+  $map = [
+    'status' => 'success',
+    'warning' => 'warning',
+    'error' => 'danger',
+  ];
+  return isset($map[$type]) ? $map[$type] : 'info';
+}

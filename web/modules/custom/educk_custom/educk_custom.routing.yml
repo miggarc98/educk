@@ -1,0 +1,7 @@
+educk_custom.Meesages:
+  path: '/educk-custom/Messages/{type}/{message}'
+  defaults:
+    _title: 'Meesages'
+    _controller: '\Drupal\educk_custom\Controller\EduckCustomController'
+  requirements:
+    _permission: 'access content'

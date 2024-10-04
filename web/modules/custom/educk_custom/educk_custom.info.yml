@@ -1,0 +1,5 @@
+name: 'educk_custom'
+type: module
+description: 'functions globals'
+package: Educk
+core_version_requirement: ^10 || ^11

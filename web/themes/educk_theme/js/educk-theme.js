@@ -75,3 +75,69 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+function showLoader() {
+  document.getElementById('loader-spinner').style.display = 'block';
+}
+
+function hideLoader() {
+  document.getElementById('loader-spinner').style.display = 'none';
+}
+
+(function ($, Drupal) {
+  Drupal.behaviors.globalMessages = {
+    attach: function (context, settings) {
+      once('global-messages', 'body', context).forEach(function () {
+        // Asegúrate de que el contenedor de mensajes existe
+        if (!$('#global-message-container').length) {
+          $('body').prepend('<div id="global-message-container"></div>');
+        }
+
+        // Función global para mostrar mensajes
+        Drupal.showMessage = function(message, type = 'status', duration = 5000) {
+          const container = $('#global-message-container');
+          const iconSrc = obtenerRutaIcono(type);
+          const messageElement = $(`
+            <div class="message message-${type}">
+              <span class="message-text">
+                <img src="${iconSrc}" alt="Icono de ${type}" class="message-icon">
+                ${message}
+              </span>
+              <button class="message-close">&times;</button>
+            </div>
+          `);
+
+          container.append(messageElement);
+
+          messageElement.find('.message-close').on('click', function() {
+            messageElement.fadeOut('fast', function() { $(this).remove(); });
+          });
+
+          if (duration > 0) {
+            setTimeout(() => {
+              messageElement.fadeOut('slow', function() { $(this).remove(); });
+            }, duration);
+          }
+        };
+
+        // Ejemplo de uso (puedes eliminar esto en producción)
+        // $('#add-test-message').on('click', function() {
+        //   Drupal.showMessage('Este es un mensaje de prueba', 'status');
+        // });
+      });
+    }
+  };
+})(jQuery, Drupal);
+function obtenerRutaIcono(type) {
+  const baseUrl = '/themes/educk_theme/images/'; // Ajusta esta ruta según tu estructura de archivos
+  switch(type) {
+    case 'status':
+      return baseUrl + 'check_circle.svg';
+    case 'warning':
+      return baseUrl + 'warning_triangle.svg';
+    case 'error':
+      return baseUrl + 'ERROR.png';
+    default:
+      return baseUrl + 'info_circle-menu.svg';
+  }
+}

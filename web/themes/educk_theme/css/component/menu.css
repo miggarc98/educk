@@ -259,7 +259,7 @@
     scale: 1.2;
   }
   .menu-toggle-sidebar .menu-toggle-sidebar__icon {
-    
+    transform: rotate(180deg);
   }
   .menu-toggle-sidebar__icon {
     display: block;

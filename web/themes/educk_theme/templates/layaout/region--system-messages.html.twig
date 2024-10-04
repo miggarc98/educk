@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Default theme implementation for system messages.
+ *
+ * Available variables:
+ * - messages: HTML attributes for the page title element.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title: The page title, for use in the actual content.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ *
+ * @ingroup themeable
+ */
+#}
+{% if content %}
+
+  <div{{ attributes.addClass('region-system-messages') }}>
+    {# Contenedor de alertas #}
+    <div class="container mt-3 d-flex position-fixed" style="white-space: nowrap; z-index: 1050; top: 10px; right: 10px;" id="alertContainer">
+      {% for message in message_list %}
+        <div class="alert alert-{{ message.bootstrap_type }} alert-dismissible fade show" role="alert">
+          {{ message.message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+      {% endfor %}
+    </div>
+
+    {# Loader #}
+    <div class="loader vh-100 vw-100 position-fixed" style="display: none; background-color: rgba(0,0,0,0.5); z-index: 2000;" id="loader-spinner">
+      <div class="spinner-border text-primary position-absolute top-50 start-50" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+  </div>
+{% endif %}
