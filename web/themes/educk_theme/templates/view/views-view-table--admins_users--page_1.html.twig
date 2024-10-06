@@ -72,7 +72,7 @@
   {% if header %}
     <thead class='{{ thead_class }}'>
       <tr>
-        <th class="select-column">Seleccionar</th>
+        
         {% for key, column in header %}
           {% if column.default_classes %}
             {%
@@ -86,6 +86,7 @@
             {%- if column.wrapper_element -%}
               <{{ column.wrapper_element }}>
                 {%- if column.url -%}
+                  
                   <a href="{{ column.url }}" title="{{ column.title }}">{{ column.content }}{{ column.sort_indicator }}</a>
                 {%- else -%}
                   {{ column.content }}{{ column.sort_indicator }}
@@ -100,43 +101,54 @@
             {%- endif -%}
           </th>
         {% endfor %}
+        <th>Acciones</th>
       </tr>
     </thead>
   {% endif %}
   <tbody>
-  
     {% for row in rows %}
+    
         <tr{{ row.attributes }}>
-          <td class="select-column">
-            <input type="checkbox" name="row-select" value="{{ row.uid }}">
-          </td>
+          
           {% for key, column in row.columns %}
-          {% if column.default_classes %}
-            {%
-              set column_classes = [
-                'views-field'
-              ]
-            %}
-            {% for field in column.fields %}
-              {% set column_classes = column_classes|merge(['views-field-' ~ field]) %}
-            {% endfor %}
-          {% endif %}
-          <td{{ column.attributes.addClass(column_classes) }}>
-            {%- if column.wrapper_element -%}
-              <{{ column.wrapper_element }}>
-              {% for content in column.content %}
-                {{ content.separator }}{{ content.field_output }}
+            {% if column.default_classes %}
+              {%
+                set column_classes = [
+                  'views-field'
+                ]
+              %}
+
+              {% for field in column.fields %}
+                {% set column_classes = column_classes|merge(['views-field-' ~ field]) %}
               {% endfor %}
-              </{{ column.wrapper_element }}>
-            {%- else -%}
-              {% for content in column.content %}
-                {{- content.separator }}{{ content.field_output -}}
-              {% endfor %}
-            {%- endif %}
+            {% endif %}
+            {% if key == 'uid' %}
+              <td{{ column.attributes.addClass(column_classes) }}>             
+                  <input type="checkbox" name="user_ids[]" value="{{ column.content[0].field_output|render|striptags|trim }}">
+              </td>
+            {% else %}
+              <td{{ column.attributes.addClass(column_classes) }}>
+                {%- if column.wrapper_element -%}
+                <{{ column.wrapper_element }}>
+                {% for content in column.content %}
+                  {{ content.separator }}{{ content.field_output }}
+                {% endfor %}
+                </{{ column.wrapper_element }}>
+              {%- else -%}
+                {% for content in column.content %}
+                  {{- content.separator }}{{ content.field_output -}}
+                {% endfor %}
+                {%- endif %}
+              </td>
+            {% endif %}
+          {% endfor %}
+          <td>
+            <button class="btn btn-primary btn-sm" title="Editar"><i class="fas fa-edit"></i></button>
+            <button class="btn btn-danger btn-sm" title="Eliminar"><i class="fas fa-trash"></i></button>
           </td>
-        {% endfor %}
-      </tr>
+        </tr>
     {% endfor %}
+
   </tbody>
 </table>
 </div>
