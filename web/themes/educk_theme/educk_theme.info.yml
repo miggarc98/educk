@@ -1,6 +1,6 @@
 name: educk_theme
 type: theme
-base theme: false
+base theme: bootstrap
 description: Educk theme
 package: EDUCK
 core_version_requirement: ^10

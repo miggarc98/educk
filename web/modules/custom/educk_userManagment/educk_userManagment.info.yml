@@ -1,4 +1,4 @@
-name: 'userManagment'
+name: 'educk_userManagment'
 type: module
 description: 'Module to managment users of institutions'
 package: EDUCK

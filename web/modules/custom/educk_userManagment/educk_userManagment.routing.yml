@@ -1,0 +1,7 @@
+educk_userManagment.content:
+  path: '/educk-user-management'
+  defaults:
+    _controller: '\Drupal\educk_userManagment\Controller\EduckUserManagementController::content'
+    _title: 'Gestión de usuarios de instituciones'
+  requirements:
+    _permission: 'access content'

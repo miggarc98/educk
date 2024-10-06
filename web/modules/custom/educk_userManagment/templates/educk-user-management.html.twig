@@ -1,0 +1,14 @@
+Hola
+{% if results %}
+  <ul>
+    {% for result in results %}
+      <li>
+        {% for key, value in result %}
+          <strong>{{ key }}:</strong> {{ value }}
+        {% endfor %}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No se encontraron resultados.</p>
+{% endif %}

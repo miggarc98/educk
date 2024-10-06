@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function educk_userManagment_theme() {
+    return [
+      'educk_user_management' => [
+        'variables' => [
+          'results' => [],
+        ],
+        'template' => 'educk-user-management',
+      ],
+    ];
+  }

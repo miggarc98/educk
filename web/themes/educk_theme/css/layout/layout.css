@@ -34,7 +34,7 @@ button:hover {
 #footer-simple{
   height: 2rem;
   background-color: var(--accent-color);
-  
+  position: fixed !important;
   /* text-align: center; */
   color: var(--primary-color);
   position: absolute;
