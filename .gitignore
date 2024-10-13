@@ -3,7 +3,7 @@ vendor
 web/core
 
 web/sites/default/files/translations
-web/sites/default/files/sync
+# web/sites/default/files/sync
 web/sites/default/files/styles
 web/sites/default/files/php
 web/sites/default/files/languages
