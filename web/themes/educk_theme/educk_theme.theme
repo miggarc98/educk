@@ -6,6 +6,8 @@ use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\Core\Menu\MenuTree;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Template\Attribute;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\profile\Entity\Profile;
 /**
  * @file
  * Functions to support theming in the educk_theme theme.
@@ -14,70 +16,71 @@ use Drupal\Core\Template\Attribute;
 /**
  * Implements hook_preprocess_HOOK() for html.html.twig.
  */
-function educk_theme_preprocess_html(array &$variables): void {
+function educk_theme_preprocess_html(array &$variables): void
+{
 
 }
 
 /**
  * Implements hook_preprocess_HOOK() for page.html.twig.
  */
-/**
- * Implements hook_preprocess_HOOK() for page.html.twig.
- */
-function educk_theme_preprocess_page(array &$variables): void {
+function educk_theme_preprocess_page(array &$variables): void
+{
   $user = \Drupal::currentUser();
 
   // Verifica si el usuario está logueado.
   if ($user->isAuthenticated()) {
-      // Intenta obtener el administrador de bloques.
-      $block_manager = \Drupal::service('plugin.manager.block');
+    // Intenta obtener el administrador de bloques.
+    $block_manager = \Drupal::service('plugin.manager.block');
 
-      // Verifica si el servicio de gestión de bloques está disponible.
-      if ($block_manager) {
-          // Agrega un bloque para el menú de cuenta de usuario.
-          $account_menu_block = $block_manager->createInstance('educk_theme_account_menu', []);
-          if ($account_menu_block) {
-              $variables['account_menu'] = $account_menu_block->build(); // Asegúrate de asignar a 'account_menu'.
-              
-          } else {
-              \Drupal::logger('educk_theme')->error('No se pudo crear el bloque educk_theme_account_menu.');
-          }
+    // Verifica si el servicio de gestión de bloques está disponible.
+    if ($block_manager) {
+      // Agrega un bloque para el menú de cuenta de usuario.
+      $account_menu_block = $block_manager->createInstance('educk_theme_account_menu', []);
+      if ($account_menu_block) {
+        $variables['account_menu'] = $account_menu_block->build(); // Asegúrate de asignar a 'account_menu'.
+
       } else {
-          \Drupal::logger('educk_theme')->error('El servicio de plugin.manager.block no está disponible.');
+        \Drupal::logger('educk_theme')->error('No se pudo crear el bloque educk_theme_account_menu.');
       }
+    } else {
+      \Drupal::logger('educk_theme')->error('El servicio de plugin.manager.block no está disponible.');
+    }
   }
 }
-function educk_theme_preprocess_menu(&$variables) {
-    $current_user = \Drupal::currentUser();
-    $variables['user_name'] = $current_user->getDisplayName();
-    if ($variables['menu_name'] == 'main') {  // Asumiendo que 'main' es el nombre de tu menú principal
-        // Intenta obtener el administrador de bloques.
-        $block_manager = \Drupal::service('plugin.manager.block');
-    
-        // Verifica si el servicio de gestión de bloques está disponible.
-        if ($block_manager) {
-          // Agrega un bloque para el menú de cuenta de usuario.
-          $account_menu_block = $block_manager->createInstance('system_menu_block:account', []);
-          if ($account_menu_block) {
-            $variables['account_menu'] = $account_menu_block->build();
-          } else {
-            \Drupal::logger('educk_theme')->error('No se pudo crear el bloque del menú de cuenta.');
-          }
-        } else {
-          \Drupal::logger('educk_theme')->error('El servicio de plugin.manager.block no está disponible.');
-        }
+function educk_theme_preprocess_menu(&$variables)
+{
+  $current_user = \Drupal::currentUser();
+  $variables['user_name'] = $current_user->getDisplayName();
+  if ($variables['menu_name'] == 'main') {  // Asumiendo que 'main' es el nombre de tu menú principal
+    // Intenta obtener el administrador de bloques.
+    $block_manager = \Drupal::service('plugin.manager.block');
+
+    // Verifica si el servicio de gestión de bloques está disponible.
+    if ($block_manager) {
+      // Agrega un bloque para el menú de cuenta de usuario.
+      $account_menu_block = $block_manager->createInstance('system_menu_block:account', []);
+      if ($account_menu_block) {
+        $variables['account_menu'] = $account_menu_block->build();
+      } else {
+        \Drupal::logger('educk_theme')->error('No se pudo crear el bloque del menú de cuenta.');
+      }
+    } else {
+      \Drupal::logger('educk_theme')->error('El servicio de plugin.manager.block no está disponible.');
     }
-    
   }
 
+}
 
-    
+
+
 
 
 /**
  * Implements hook_preprocess_HOOK() for node.html.twig.
  */
-function educk_theme_preprocess_node(array &$variables): void {
+function educk_theme_preprocess_node(array &$variables): void
+{
 
 }
 
@@ -87,7 +90,8 @@ function educk_theme_preprocess_node(array &$variables): void {
 /**
  * Implements hook_preprocess_HOOK() for status messages.
  */
-function educk_theme_preprocess_status_messages(&$variables) {
+function educk_theme_preprocess_status_messages(&$variables)
+{
   $messenger = \Drupal::messenger();
   $messages = $messenger->all();
   $messenger->deleteAll();
@@ -107,7 +111,8 @@ function educk_theme_preprocess_status_messages(&$variables) {
 /**
  * Helper function to map Drupal message types to Bootstrap alert types.
  */
-function _educk_theme_map_message_type($type) {
+function _educk_theme_map_message_type($type)
+{
   $map = [
     'status' => 'success',
     'warning' => 'warning',
@@ -116,3 +121,72 @@ function _educk_theme_map_message_type($type) {
   return isset($map[$type]) ? $map[$type] : 'info';
 }
 
+function educk_theme_preprocess_user(array &$variables) {
+  // Verifica si estamos en el modo de vista 'full'.
+  if ($variables['elements']['#view_mode'] == 'full') {
+    // Verifica que $variables["user"] sea una instancia válida de la entidad User.
+    if ($variables["user"] instanceof \Drupal\user\Entity\User) {
+      //obtener la edad actual
+      $age=$date_born = $variables["user"]->get("field_date_born")->getValue();
+        if ($age) {
+        $age = $age[0]["value"];
+        $fecha_nacimiento_obj = new \DateTime($age);
+        // Obtiene la fecha actual.
+        $fecha_actual = new \DateTime();
+        // Calcula la diferencia entre las fechas.
+        $age = $fecha_actual->diff($fecha_nacimiento_obj)->y;  // 'y' devuelve los años de diferencia.
+        $variables['additional_information']['age'] = $age;
+        }
+      // Obtiene los roles del usuario.
+      $roles = $variables["user"]->getRoles();
+
+      // Filtra el rol 'authenticated' y selecciona otros roles.
+      if (!empty($roles)) {
+        foreach ($roles as $role) {
+          if ($role != "authenticated") {
+            // Determina el tipo de perfil según el rol del usuario.
+            $profile_type = "";
+            switch ($role) {
+              case "maestro":
+                $profile_type = "master";
+                break;
+              case "estudiante":
+                $profile_type = "student";
+                break;
+              default:
+                $profile_type = null;
+                break;
+            }
+
+            // Carga el perfil correspondiente según el tipo de perfil.
+            if ($profile_type) {
+              $profile = \Drupal::entityTypeManager()
+                ->getStorage('profile')
+                ->loadByProperties([
+                  'uid' => $variables["user"]->id(),
+                  'type' => $profile_type,
+                ]);
+
+              // Si se encuentra el perfil, lo añadimos a las variables de la vista.
+              if (!empty($profile)) {
+                // Obtiene la primera coincidencia, en caso de múltiples perfiles.
+                $profile = reset($profile);
+                // Pasar el perfil a las variables para que esté disponible en la vista.
+                $variables['profile'] = $profile;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+function obtenerAccount(AccountInterface $account)
+{
+  // Acceder al ID del usuario.
+  $uid = $account->id();
+
+  // Acceder al nombre del usuario.
+  $username = $account->getDisplayName();
+}
