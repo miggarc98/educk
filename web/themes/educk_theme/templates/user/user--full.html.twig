@@ -19,12 +19,7 @@
 
 
 
-
-{% if profile is not empty %}
-{{dump(user)}}
- {{dump(profile)}}
- 
-{% endif %}
+{% set rol ="" %}
 
 <div class="funciones-usuario d-flex flex-wrap justify-content-start align-items-center mb-3 p-3">
   <a href="{{ path('entity.user.edit_form', { user: user.id }) }}" class="editar-usuario btn btn-outline-primary me-2 mb-2">
@@ -55,6 +50,7 @@
                 <p class="text-secondary mb-1">
                   {% for role in user.roles %}
                     {{ role.entity.label }}
+                    {% set rol = role.entity.label %}
                     {% if not loop.last %}
                       ,
                     {% endif %}
@@ -66,7 +62,7 @@
             </div>
           </div>
         </div>
-        
+        {% if rol|upper == "MAESTRO"  %}
         <section id="contact-emergency">
           <div class="card mt-3">
             <ul class="list-group list-group-flush">
@@ -102,6 +98,7 @@
             </ul>
           </div>
         </section>
+      {% endif %}
       </div>
       <div class="col-md-8">
         <div class="card mb-3">
