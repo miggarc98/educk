@@ -1,0 +1,5 @@
+name: 'Educk institution'
+type: module
+description: 'config the institution to create and manage'
+package: Educk
+core_version_requirement: ^10 || ^11

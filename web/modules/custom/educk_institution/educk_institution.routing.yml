@@ -1,0 +1,7 @@
+educk_institution.example:
+  path: '/educk-institution/example'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\educk_institution\Controller\EduckInstitutionController'
+  requirements:
+    _permission: 'access content'
