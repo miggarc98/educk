@@ -121,14 +121,15 @@ function _educk_theme_map_message_type($type)
   return isset($map[$type]) ? $map[$type] : 'info';
 }
 
-function educk_theme_preprocess_user(array &$variables) {
+function educk_theme_preprocess_user(array &$variables)
+{
   // Verifica si estamos en el modo de vista 'full'.
   if ($variables['elements']['#view_mode'] == 'full') {
     // Verifica que $variables["user"] sea una instancia válida de la entidad User.
     if ($variables["user"] instanceof \Drupal\user\Entity\User) {
       //obtener la edad actual
-      $age=$date_born = $variables["user"]->get("field_date_born")->getValue();
-        if ($age) {
+      $age = $date_born = $variables["user"]->get("field_date_born")->getValue();
+      if ($age) {
         $age = $age[0]["value"];
         $fecha_nacimiento_obj = new \DateTime($age);
         // Obtiene la fecha actual.
@@ -136,7 +137,7 @@ function educk_theme_preprocess_user(array &$variables) {
         // Calcula la diferencia entre las fechas.
         $age = $fecha_actual->diff($fecha_nacimiento_obj)->y;  // 'y' devuelve los años de diferencia.
         $variables['additional_information']['age'] = $age;
-        }
+      }
       // Obtiene los roles del usuario.
       $roles = $variables["user"]->getRoles();
 
@@ -145,34 +146,57 @@ function educk_theme_preprocess_user(array &$variables) {
         foreach ($roles as $role) {
           if ($role != "authenticated") {
             // Determina el tipo de perfil según el rol del usuario.
-            $profile_type = "";
+            $profileType = "";
             switch ($role) {
               case "maestro":
-                $profile_type = "master";
+                $profileType = "master";
                 break;
               case "estudiante":
-                $profile_type = "student";
+                $profileType = "student";
                 break;
               default:
-                $profile_type = null;
+                $profileType = null;
                 break;
             }
 
             // Carga el perfil correspondiente según el tipo de perfil.
-            if ($profile_type) {
+            if ($profileType) {
               $profile = \Drupal::entityTypeManager()
                 ->getStorage('profile')
                 ->loadByProperties([
                   'uid' => $variables["user"]->id(),
-                  'type' => $profile_type,
+                  'type' => $profileType,
                 ]);
-
+                
               // Si se encuentra el perfil, lo añadimos a las variables de la vista.
               if (!empty($profile)) {
+                $profile = array_values($profile);
                 // Obtiene la primera coincidencia, en caso de múltiples perfiles.
                 $profile = reset($profile);
                 // Pasar el perfil a las variables para que esté disponible en la vista.
                 $variables['profile'] = $profile;
+              }
+              switch ($profileType) {                
+                case 'student':
+                  $tutorId = $profile->get("field_tutor_reference")->getValue();
+                  $tutor = \Drupal\user\Entity\User::load($tutorId[0]["target_id"]);
+                  //enviamos tutor a la variables del twig
+                  $variables['tutor'] = $tutor;
+
+                  //obtenemos los datos adicionales del tutor
+                  $profileTutor = \Drupal::entityTypeManager()
+                  ->getStorage('profile')
+                  ->loadByProperties([
+                    'uid' => $tutor->id(),
+                    'type' => 'tutor',
+                  ]);
+                  $profileTutorIndexed = array_values($profileTutor);
+                  //enviamos los datos adicionales del tutor al TWIG
+                  $variables['tutorProfile'] = $profileTutorIndexed;
+                  $variables['tutorUrl'] = $tutor->toUrl()->toString();
+                  break;
+                default:
+                  break;
               }
             }
           }

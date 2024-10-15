@@ -21,22 +21,7 @@
 
 {% set rol ="" %}
 
-<div class="funciones-usuario d-flex flex-wrap justify-content-start align-items-center mb-3 p-3">
-  <a href="{{ path('entity.user.edit_form', { user: user.id }) }}" class="editar-usuario btn btn-outline-primary me-2 mb-2">
-    <i class="fas fa-edit me-1"></i>
-    Editar
-  </a>
-  <a href="{{ path('user.page') }}" class="actualizar-usuario btn btn-outline-secondary me-2 mb-2">
-    <i class="fas fa-clock me-1"></i>
-    Actualizar
-  </a>
-  {% if user.id != 1 %}
-    <a href="{{ path('entity.user.cancel_form', { user: user.id }) }}" class="eliminar-usuario btn btn-outline-danger mb-2">
-      <i class="fas fa-trash me-1"></i>
-      Eliminar
-    </a>
-  {% endif %}
-</div>
+
 <div class="container"> 
   <div class="main-body">
     <div class="row gutters-sm">
@@ -99,6 +84,43 @@
           </div>
         </section>
       {% endif %}
+       {% if rol|upper == "ESTUDIANTE" %}        
+        <section id="tutor-card">
+          <div class="card mt-3">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex align-items-center flex-column ">
+                <h6 class="mb-0 ">
+                  Tutor
+                </h6>             
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <h6 class="mb-0">
+                  Nombre
+                </h6>
+                <span class="text-secondary"><a href="{{tutorUrl}}">{{ tutor.field_name_user.value }}</a>            
+                </span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <h6 class="mb-0">
+                Telefono
+                </h6>
+                
+                <span class="text-secondary"> {{ tutorProfile[0].get('field_cellphone_number').value }}
+                </span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <h6 class="mb-0">
+                Telefono Res.
+                </h6>
+                <span class="text-secondary">
+                {{ tutorProfile[0].get('field_phone_residence').value }}
+                
+                </span>
+              </li>            
+            </ul>
+          </div>
+        </section>
+      {% endif %}
       </div>
       <div class="col-md-8">
         <div class="card mb-3">
@@ -108,7 +130,7 @@
                 <h6 class="mb-0">Nombre completo</h6>
               </div>
               <div class="col-sm-9 text-secondary">
-                <input type="text" class="form-control" value="{{ user.getDisplayName() }}" disabled />
+                <input type="text" class="form-control" value="{{ user.field_name_user.value }}" disabled />
               </div>
             </div>
             <hr />
@@ -165,8 +187,7 @@
               <div class="col-sm-3">
                 <h6 class="mb-0">Fecha de Nacimiento </h6>
               </div>
-              <div class="col-sm-9 text-secondary">
-              
+              <div class="col-sm-9 text-secondary">              
                 <input type="text" class="form-control" 
                 value="{{ user.field_date_born.value ? user.field_date_born.value : '*Sin Datos*' }}"  disabled />
               </div>
